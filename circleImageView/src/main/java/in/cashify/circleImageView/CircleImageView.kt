@@ -1,4 +1,4 @@
-package com.example.circleimageview
+package `in`.cashify.circleImageView
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -17,7 +17,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
-import de.hdodenhof.circleimageview.R
+
 
 class CircleImageView : ImageView {
 

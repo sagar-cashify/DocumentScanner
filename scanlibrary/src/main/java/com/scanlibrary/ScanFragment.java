@@ -3,7 +3,6 @@ package com.scanlibrary;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.PointF;
@@ -23,7 +22,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 
-import com.example.circleimageview.CircleImageView;
+import in.cashify.circleImageView.CircleImageView;
 
 import java.io.IOException;
 import java.util.ArrayList;

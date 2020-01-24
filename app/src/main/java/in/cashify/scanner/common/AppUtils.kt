@@ -15,15 +15,5 @@ class AppUtils {
             activity.startActivityForResult(pickPhoto, AppConstant.OPEN_GALLERY_RESULT)
         }
 
-
-//        fun getPath(uri: Uri): String {
-//            val projection = arrayOf(MediaStore.Images.Media.DATA)
-//            val cursor = managedQuery(uri, projection, null, null, null)
-//            val column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-//            cursor.moveToFirst()
-//            return cursor.getString(column_index)
-//        }
-
-
     }
 }

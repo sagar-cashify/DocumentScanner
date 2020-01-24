@@ -92,7 +92,8 @@ class ChooseActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (resultCode == RESULT_OK && requestCode == AppConstant.OPEN_GALLERY_RESULT) {
+        if (requestCode == AppConstant.OPEN_GALLERY_RESULT) {
+            if(resultCode == RESULT_OK ){
                 val intent = Intent(this@ChooseActivity, ScanActivity::class.java)
                 val bundle = Bundle()
                 bundle.putParcelable(ScanConstants.SELECTED_BITMAP, data?.data)
@@ -103,21 +104,30 @@ class ChooseActivity : AppCompatActivity() {
 
 
             }
+        else{
+                Toast.makeText(this, "Some Error Occur", Toast.LENGTH_LONG).show()
+            }
+        }
 
 
-        if (requestCode == AppConstant.REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            val uri = data?.getExtras()!!.getParcelable<Uri>(ScanConstants.SCANNED_RESULT)
-            val intent = Intent()
-            intent.putExtra(ScanConstants.SCANNED_RESULT, uri)
-            setResult(Activity.RESULT_OK, intent)
-            finish()
+       if (requestCode == AppConstant.REQUEST_CODE ) {
+           if(resultCode == RESULT_OK ) {
+
+               val uri = data?.getExtras()!!.getParcelable<Uri>(ScanConstants.SCANNED_RESULT)
+               val intent = Intent()
+               intent.putExtra(ScanConstants.SCANNED_RESULT, uri)
+               setResult(Activity.RESULT_OK, intent)
+               finish()
+           }
+
+           else{
+               Toast.makeText(this, "Some Error Occur", Toast.LENGTH_LONG).show()
+           }
 
         }
 
 
-    else{
-        Toast.makeText(this, "Some Error Occur", Toast.LENGTH_LONG).show()
-    }
+
 
 
     }
