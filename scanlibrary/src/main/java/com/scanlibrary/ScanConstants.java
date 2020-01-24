@@ -2,9 +2,6 @@ package com.scanlibrary;
 
 import android.os.Environment;
 
-/**
- * Created by jhansi on 15/03/15.
- */
 public class ScanConstants {
 
     public final static int PICKFILE_REQUEST_CODE = 1;
@@ -18,4 +15,5 @@ public class ScanConstants {
             .getExternalStorageDirectory().getPath() + "/scanSample";
 
     public final static String SELECTED_BITMAP = "selectedBitmap";
+    public final static String IS_GALLERY = "isGallery";
 }

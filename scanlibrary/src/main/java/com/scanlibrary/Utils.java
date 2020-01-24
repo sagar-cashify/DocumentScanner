@@ -12,9 +12,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Created by jhansi on 05/04/15.
- */
 public class Utils {
 
     private Utils() {

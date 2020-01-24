@@ -60,10 +60,14 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/bottom_background_color"
+        android:background="@drawable/bg_rect_round_corner"
         android:orientation="horizontal"
         android:padding="@dimen/bottom_bar_padding"
-        android:text="@string/done" />
+        android:text="@string/done"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="@android:color/white"/>
 
 
     <FrameLayout

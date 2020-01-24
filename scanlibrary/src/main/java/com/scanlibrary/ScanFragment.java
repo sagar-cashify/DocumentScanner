@@ -3,6 +3,7 @@ package com.scanlibrary;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.PointF;
@@ -11,6 +12,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -20,6 +22,9 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+
+import com.example.circleimageview.CircleImageView;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,9 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 
-/**
- * Created by jhansi on 29/03/15.
- */
+
 public class ScanFragment extends Fragment {
 
     private Button scanButton;
@@ -40,7 +43,7 @@ public class ScanFragment extends Fragment {
     private ProgressDialogFragment progressDialogFragment;
     private IScanner scanner;
     private Bitmap original;
-    com.example.circleimageview.CircleImageView img_move;
+    private CircleImageView img_move;
     Bitmap scaledBitmap;
 
     ImageView zoomImage;
@@ -76,7 +79,16 @@ public class ScanFragment extends Fragment {
         sourceFrame.post(new Runnable() {
             @Override
             public void run() {
-                original = getBitmap();
+                if(getActivity().getIntent().getBooleanExtra(ScanConstants.IS_GALLERY , false)){
+             original = getGalleryBitmap();
+                }
+
+                else {
+                    original = getBitmap();
+                }
+
+
+
                 if (original != null) {
 
 
@@ -131,6 +143,17 @@ public class ScanFragment extends Fragment {
         }
         return null;
     }
+
+
+    public Bitmap getGalleryBitmap() {
+        try {
+           return MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), getUri());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     private Uri getUri() {
         Uri uri = getArguments().getParcelable(ScanConstants.SELECTED_BITMAP);

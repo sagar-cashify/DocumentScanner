@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChooseActivity"
+    tools:context="in.cashify.scanner.ChooseActivity"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -12,14 +12,25 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Camera"
-        android:id="@+id/btn_cam"/>
+        android:text="Open Camera"
+        android:id="@+id/btn_cam"
+        android:textColor="@android:color/white"
+        android:textAllCaps="false"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:background="@drawable/bg_rect_round_corner"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Image"
-        android:id="@+id/btn_file"/>
+        android:text="Pick from Gallery"
+        android:id="@+id/btn_file"
+        android:textColor="@android:color/white"
+        android:textAllCaps="false"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_rect_round_corner"/>
 
 
 
