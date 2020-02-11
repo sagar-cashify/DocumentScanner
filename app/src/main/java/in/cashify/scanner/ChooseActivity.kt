@@ -97,32 +97,32 @@ class ChooseActivity : AppCompatActivity() {
                 val intent = Intent(this@ChooseActivity, ScanActivity::class.java)
                 val bundle = Bundle()
                 bundle.putParcelable(ScanConstants.SELECTED_BITMAP, data?.data)
-               intent.putExtra(ScanConstants.IS_GALLERY , true)
+                intent.putExtra(ScanConstants.IS_GALLERY , true)
                 intent.putExtras(bundle)
-            startActivityForResult(intent, AppConstant.REQUEST_CODE)
+                startActivityForResult(intent, AppConstant.REQUEST_CODE)
 
 
 
             }
-        else{
+            else{
                 Toast.makeText(this, "Some Error Occur", Toast.LENGTH_LONG).show()
             }
         }
 
 
-       if (requestCode == AppConstant.REQUEST_CODE ) {
-           if(resultCode == RESULT_OK ) {
+        if (requestCode == AppConstant.REQUEST_CODE ) {
+            if(resultCode == RESULT_OK ) {
 
-               val uri = data?.getExtras()!!.getParcelable<Uri>(ScanConstants.SCANNED_RESULT)
-               val intent = Intent()
-               intent.putExtra(ScanConstants.SCANNED_RESULT, uri)
-               setResult(Activity.RESULT_OK, intent)
-               finish()
-           }
+                val uri = data?.getExtras()!!.getParcelable<Uri>(ScanConstants.SCANNED_RESULT)
+                val intent = Intent()
+                intent.putExtra(ScanConstants.SCANNED_RESULT, uri)
+                setResult(Activity.RESULT_OK, intent)
+                finish()
+            }
 
-           else{
-               Toast.makeText(this, "Some Error Occur", Toast.LENGTH_LONG).show()
-           }
+            else{
+                Toast.makeText(this, "Some Error Occur", Toast.LENGTH_LONG).show()
+            }
 
         }
 

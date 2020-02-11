@@ -20,24 +20,29 @@
 
 
     <RelativeLayout
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_margin="20dp"
-        android:id="@+id/relative"
-        android:padding="7dp"
-        android:background="@drawable/white_stroke_circle">
-        <in.cashify.circleImageView.CircleImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/img_move"
-            android:background="@drawable/img_circle"/>
-        <View
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/ic_add"
-            android:layout_centerInParent="true"/>
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+         android:id="@+id/relative"
+         android:padding="7dp"
+        android:gravity="center"
+        android:visibility="visible"
+       >
+        <com.scanlibrary.Layout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/layout"
+            android:gravity="center"
+            android:background="@android:color/white"
+
+            >
+
+        </com.scanlibrary.Layout>
 
     </RelativeLayout>
+
 
     <FrameLayout
         android:layout_width="match_parent"

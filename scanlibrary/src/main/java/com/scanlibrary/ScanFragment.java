@@ -4,12 +4,17 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -20,7 +25,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
+
+import androidx.annotation.RequiresApi;
 
 import in.cashify.circleImageView.CircleImageView;
 
@@ -38,14 +46,15 @@ public class ScanFragment extends Fragment {
     private ImageView sourceImageView;
     private FrameLayout sourceFrame;
     private PolygonView polygonView;
-    private View view;
+    private RelativeLayout view;
     private ProgressDialogFragment progressDialogFragment;
     private IScanner scanner;
     private Bitmap original;
-    private CircleImageView img_move;
+   // private CircleImageView img_move;
     Bitmap scaledBitmap;
 
     ImageView zoomImage;
+    private Layout imageView;
 
     @Override
     public void onAttach(Activity activity) {
@@ -58,10 +67,12 @@ public class ScanFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.scan_fragment_layout, null);
+        view = (RelativeLayout) inflater.inflate(R.layout.scan_fragment_layout, null);
         init();
+
         return view;
     }
+
 
     public ScanFragment() {
 
@@ -73,9 +84,16 @@ public class ScanFragment extends Fragment {
         scanButton.setOnClickListener(new ScanButtonClickListener());
         sourceFrame = (FrameLayout) view.findViewById(R.id.sourceFrame);
         polygonView = (PolygonView) view.findViewById(R.id.polygonView);
-        img_move = view.findViewById(R.id.img_move);
+        imageView = view.findViewById(R.id.layout);
+
+        imageView.invalidate();
+
+
+
+       // img_move = view.findViewById(R.id.img_move);
         zoomImage = view.findViewById(R.id.zoomImage);
-        sourceFrame.post(new Runnable() {
+        sourceFrame.post(new Runnable()
+        {
             @Override
             public void run() {
                 if(getActivity().getIntent().getBooleanExtra(ScanConstants.IS_GALLERY , false)){
@@ -105,30 +123,18 @@ public class ScanFragment extends Fragment {
     }
 
 
-    private void getCroppedBitmap(Bitmap original, float x, float y) {
-        float xRatio = (float) original.getWidth() / sourceImageView.getWidth();
-        float yRatio = (float) original.getHeight() / sourceImageView.getHeight();
+ private void getCroppedBitmap(Bitmap original, float x, float y)
+ {
+     imageView.x = x;
+     imageView.y = y;
 
-        float touchX = (x) * xRatio;
-        float touchY = (y) * yRatio;
+     imageView.isInit = true;
 
-        int startX = (int) (touchX - img_move.getWidth() / 2);
-        if (startX < 0) startX = 0;
-        if (startX > original.getWidth()) startX = original.getWidth();
+     imageView.invalidate();
+
+  }
 
 
-        int startY = (int) (touchY - img_move.getHeight() / 2);
-        if (startY < 0) startY = 0;
-        if (startY > original.getHeight()) startY = original.getHeight();
-        Log.e("touch", "x  : " + touchX + "   y:  " + touchY);
-
-        int width = Math.min(img_move.getWidth(), original.getWidth() - startX);
-        int height = Math.min(img_move.getHeight(), original.getHeight() - startY);
-
-//        Log.d("", "POints(" + x1 + "," + y1 + ")(" + x2 + "," + y2 + ")(" + x3 + "," + y3 + ")(" + x4 + "," + y4 + ")");
-        Bitmap _bitmap = Bitmap.createBitmap(original, startX, startY, width, height);
-        img_move.setImageBitmap(_bitmap);
-    }
 
 
     private Bitmap getBitmap() {
@@ -159,12 +165,20 @@ public class ScanFragment extends Fragment {
         return uri;
     }
 
-    private void setBitmap(Bitmap original) {
-         scaledBitmap = scaledBitmap(original, sourceFrame.getWidth(), sourceFrame.getHeight());
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void setBitmap(Bitmap original)
+    {
+        scaledBitmap = scaledBitmap(original, sourceFrame.getWidth(), sourceFrame.getHeight());
         sourceImageView.setImageBitmap(scaledBitmap);
 
+       // imageView.invalidate();
 
-        img_move.setImageBitmap(scaledBitmap);
+        Drawable drawable = getActivity().getApplicationContext().getDrawable(R.drawable.ic_add);
+
+        Bitmap imageBitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+
+      //  Bitmap imageBitmap = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.ic_add);
+        imageView.setImageBitmap(scaledBitmap ,imageBitmap);
         Bitmap tempBitmap = ((BitmapDrawable) sourceImageView.getDrawable()).getBitmap();
         Map<Integer, PointF> pointFs = getEdgePoints(tempBitmap);
         polygonView.setPoints(pointFs);

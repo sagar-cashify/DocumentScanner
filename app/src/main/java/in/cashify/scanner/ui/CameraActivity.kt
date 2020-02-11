@@ -147,7 +147,8 @@ class CameraActivity : AppCompatActivity() {
         try {
             val characteristics = manager.getCameraCharacteristics(cameraDevice!!.id)
             var jpegSizes: Array<Size>? = null
-            if (characteristics != null) {
+            if (characteristics != null)
+            {
                 jpegSizes = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!.getOutputSizes(ImageFormat.JPEG)
             }
             var width = 640
@@ -329,13 +330,13 @@ class CameraActivity : AppCompatActivity() {
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        if (requestCode == REQUEST_CAMERA_PERMISSION) {
-            if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                // close the app
-                Toast.makeText(this@CameraActivity, "Sorry!!!, you can't use this app without granting permission", Toast.LENGTH_LONG).show()
-                finish()
-            }
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray)
+    {
+        if ((requestCode == REQUEST_CAMERA_PERMISSION) && (grantResults[0] == PackageManager.PERMISSION_DENIED))
+        {
+            // close the app
+            Toast.makeText(this@CameraActivity, "Sorry!!!, you can't use this app without granting permission", Toast.LENGTH_LONG).show()
+            finish()
         }
     }
 

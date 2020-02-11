@@ -44,7 +44,8 @@ public class PolygonView extends FrameLayout {
         init();
     }
 
-    public PolygonView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public PolygonView(Context context, AttributeSet attrs, int defStyleAttr)
+    {
         super(context, attrs, defStyleAttr);
         this.context = context;
         init();
@@ -209,27 +210,27 @@ public class PolygonView extends FrameLayout {
                             v.setX((int) (StartPT.y + mv.y));
                             StartPT = new PointF(v.getX(), v.getY());
                             mainPointer2.setY((int) (mainPointer2.getY() + mv.y));
-                            touchPointListener.touchPoints(mainPointer2.getX() , mainPointer2.getY());
+                          //  touchPointListener.touchPoints(mainPointer2.getX() , mainPointer2.getY());
 
                         }
                         if (((mainPointer1.getY() + mv.y + v.getHeight() < polygonView.getHeight()) && (mainPointer1.getY() + mv.y > 0))) {
                             v.setX((int) (StartPT.y + mv.y));
                             StartPT = new PointF(v.getX(), v.getY());
                             mainPointer1.setY((int) (mainPointer1.getY() + mv.y));
-                            touchPointListener.touchPoints(mainPointer1.getX() , mainPointer1.getY());
+                          //  touchPointListener.touchPoints(mainPointer1.getX() , mainPointer1.getY());
                         }
                     } else {
                         if ((mainPointer2.getX() + mv.x + v.getWidth() < polygonView.getWidth()) && (mainPointer2.getX() + mv.x > 0)) {
                             v.setX((int) (StartPT.x + mv.x));
                             StartPT = new PointF(v.getX(), v.getY());
                             mainPointer2.setX((int) (mainPointer2.getX() + mv.x));
-                            touchPointListener.touchPoints(mainPointer2.getX() , mainPointer2.getY());
+                          //  touchPointListener.touchPoints(mainPointer2.getX() , mainPointer2.getY());
                         }
                         if ((mainPointer1.getX() + mv.x + v.getWidth() < polygonView.getWidth()) && (mainPointer1.getX() + mv.x > 0)) {
                             v.setX((int) (StartPT.x + mv.x));
                             StartPT = new PointF(v.getX(), v.getY());
                             mainPointer1.setX((int) (mainPointer1.getX() + mv.x));
-                            touchPointListener.touchPoints(mainPointer1.getX() , mainPointer2.getY());
+                           // touchPointListener.touchPoints(mainPointer1.getX() , mainPointer2.getY());
                         }
                     }
 
@@ -240,7 +241,7 @@ public class PolygonView extends FrameLayout {
                     DownPT.x = event.getX();
                     DownPT.y = event.getY();
                     StartPT = new PointF(v.getX(), v.getY());
-                    touchPointListener.touchPoints(v.getX() , v.getY());
+                 //   touchPointListener.touchPoints(v.getX() , v.getY());
                     break;
                 case MotionEvent.ACTION_UP:
                     int color = 0;
@@ -274,14 +275,16 @@ public class PolygonView extends FrameLayout {
         PointF StartPT = new PointF(); // Record Start Position of 'img'
 
         @Override
-        public boolean onTouch(View v, MotionEvent event) {
+        public boolean onTouch(View v, MotionEvent event)
+        {
             int eid = event.getAction();
             switch (eid) {
                 case MotionEvent.ACTION_MOVE:
                     PointF mv = new PointF(event.getX() - DownPT.x, event.getY() - DownPT.y);
-                    if (((StartPT.x + mv.x + v.getWidth()) < polygonView.getWidth() && (StartPT.y + mv.y + v.getHeight() < polygonView.getHeight())) && ((StartPT.x + mv.x) > 0 && StartPT.y + mv.y > 0)) {
-                        v.setX((int) (StartPT.x + mv.x));
-                        v.setY((int) (StartPT.y + mv.y));
+                    if (((StartPT.x + mv.x + v.getWidth()) < polygonView.getWidth() && (StartPT.y + mv.y + v.getHeight() < polygonView.getHeight())) && ((StartPT.x + mv.x) > 0 && StartPT.y + mv.y > 0))
+                    {
+                        v.setX((float) (StartPT.x + mv.x));
+                        v.setY((float) (StartPT.y + mv.y));
                         StartPT = new PointF(v.getX(), v.getY());
                         touchPointListener.touchPoints(v.getX() , v.getY());
                     }
